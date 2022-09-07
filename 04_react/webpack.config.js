@@ -2,30 +2,22 @@ const path = require('path')
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { VueLoaderPlugin } = require("vue-loader");
 
-const mode = 'production'
+const mode = 'development'
 
 module.exports = {
     mode,
-    entry: './src/index.js',
-    resolve: {
-        extensions: ['.js', '.vue']
-    },
+    entry: './src/index.jsx',
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.jsx?$/,
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-typescript'],
+                        presets: ['@babel/preset-react'],
                     }
                 }
-            },
-            {
-                test: /\.vue$/,
-                use: ['vue-loader']
             },
             {
                 test: /\.css$/,
@@ -34,8 +26,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new VueLoaderPlugin(),
         new MiniCssExtractPlugin(),
-        new HtmlWebpackPlugin({ template: path.resolve(__dirname, './index.html') }),
+        new HtmlWebpackPlugin({ template: path.resolve(__dirname, './index.html') })
     ]
 }
